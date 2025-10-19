@@ -224,7 +224,6 @@ Furcate Protocol Specification is released under MIT License.
 - Architecture Diagrams: `/architecture/`
 - Message Schemas: `/schemas/`
 - Website: https://furcate.io
-- Documentation: https://docs.furcate.io
 
 ## Disclaimer
 
