@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+package furcate.protocol;
+
+// Model update message from edge device
+message ModelUpdate {
+  string device_id = 1;
+  int64 timestamp = 2;
+  bytes encrypted_gradients = 3;
+  bytes signature = 4;
+  AttestationReport attestation = 5;
+  int32 sample_count = 6;
+  float loss = 7;
+}
+
+// Attestation report for TEE execution
+message AttestationReport {
+  bytes quote = 1;
+  bytes public_key = 2;
+  int64 timestamp = 3;
+  string tee_type = 4; // "SGX", "TrustZone", "Nitro"
+  bytes measurement = 5;
+}
+
+// Aggregation request from coordinator
+message AggregationRequest {
+  string round_id = 1;
+  repeated string participant_ids = 2;
+  int32 min_participants = 3;
+  int64 deadline = 4;
+  bytes model_hash = 5;
+}
+
+// Aggregated model response
+message AggregatedModel {
+  string round_id = 1;
+  bytes encrypted_weights = 2;
+  int32 num_participants = 3;
+  repeated string participant_ids = 4;
+  float average_loss = 5;
+  bytes signature = 6;
+}
+
+// Device registration
+message DeviceRegistration {
+  string device_id = 1;
+  string device_type = 2;
+  bytes public_key = 3;
+  AttestationReport initial_attestation = 4;
+  map<string, string> capabilities = 5;
+}
+
+// Consensus block for Proof of Authority
+message ConsensusBlock {
+  int64 block_number = 1;
+  string previous_hash = 2;
+  int64 timestamp = 3;
+  string validator_id = 4;
+  repeated ModelUpdate updates = 5;
+  bytes signature = 6;
+}

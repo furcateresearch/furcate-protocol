@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Furcate Attestation Report",
+  "type": "object",
+  "required": [
+    "quote",
+    "timestamp",
+    "tee_type",
+    "device_id"
+  ],
+  "properties": {
+    "quote": {
+      "type": "string",
+      "description": "Base64-encoded attestation quote from TEE"
+    },
+    "public_key": {
+      "type": "string",
+      "description": "Base64-encoded public key for signature verification"
+    },
+    "timestamp": {
+      "type": "integer",
+      "description": "Unix timestamp of attestation generation"
+    },
+    "tee_type": {
+      "type": "string",
+      "enum": [
+        "SGX",
+        "TrustZone",
+        "Nitro",
+        "SEV"
+      ],
+      "description": "Type of Trusted Execution Environment"
+    },
+    "device_id": {
+      "type": "string",
+      "description": "Unique identifier of the edge device"
+    },
+    "measurement": {
+      "type": "string",
+      "description": "Base64-encoded measurement (MRENCLAVE for SGX)"
+    },
+    "nonce": {
+      "type": "string",
+      "description": "Nonce used in attestation to prevent replay attacks"
+    }
+  }
+}
